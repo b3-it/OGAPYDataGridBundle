@@ -18,12 +18,12 @@ use APY\DataGridBundle\Grid\Action\RowActionInterface;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Column\Column;
 use APY\DataGridBundle\Grid\Column\MassActionColumn;
+use APY\DataGridBundle\Grid\Export\ContainerAwareInterface;
 use APY\DataGridBundle\Grid\Export\Export;
 use APY\DataGridBundle\Grid\Export\ExportInterface;
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Source\Source;
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -556,7 +556,7 @@ class Grid implements GridInterface
 
     protected function processPersistence()
     {
-        $referer = strtok($this->request->headers->get('referer'), '?');
+        $referer = strtok((string) $this->request->headers->get('referer'), '?');
 
         // Persistence or reset - kill previous session
         if ((!$this->request->isXmlHttpRequest() && !$this->persistence && $referer != $this->getCurrentUri())
